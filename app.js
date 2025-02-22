@@ -97,7 +97,7 @@ app.use(hpp());
 // INFO_STEP:
 // 3. Mount the routes
 // TODO: Remove the comments once routes are implemented
-// app.use('/api/v1/accounts', accountRoutes);
+app.use('/api/v1/accounts', accountRoutes);
 // app.use('/api/v1/budgets', budgetRoutes);
 // app.use('/api/v1/categories', categoryRoutes);
 // app.use('/api/v1/movements', movementRoutes);
@@ -110,11 +110,16 @@ app.use(hpp());
 // INFO_STUDY: Adding a handler for unhandled routes, If it reaches this point it means
 //that none of the routers catched the route, so we create a new error and pass it to the next middleware
 
-app.all('*', (req, res, next) => {
-  next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
-});
+// app.all('*', (req, res, next) => {
+//   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
+// });
 
-// TODO: Add a global error handling middleware
+// TODO: Improve global error handling middleware
+
+app.use((err, req, res, next) => {
+  console.log(err.message);
+  next();
+})
 
 
 // INFO_STEP:

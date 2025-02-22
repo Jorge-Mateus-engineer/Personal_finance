@@ -28,7 +28,7 @@ const accountSchema = new mongoose.Schema({
 
 // INFO_STEP:
 // 2. Create a model for the account schema
-const Account = mongoose.model('Account', accountSchema);
+const Account = mongoose.model('account', accountSchema);
 
 // INFO_STEP:
 // 3. Export the Account model
