@@ -3,7 +3,7 @@
 
 Personal project to track finances, created as a mean to study how to create an API using Node.js and Express, using MongoDB as a database and making use of the Mongoose library to work with MongoDB asynchronously.
 
-This being a personal study project, the code is full with comments that describe in detail why each line or block of code does and why is there.
+This being a personal study project, the code is full with comments that describe in detail why each line or block of code does and why is there and some markdown files with study notes and relevant information.
 
 
 
