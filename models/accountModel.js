@@ -9,7 +9,7 @@ const mongoose = require('mongoose');
 /*=========================== Account Schema Definition ========================== */
 /*================================================================================ */
 
-// INFO_STUDY: refer to .schemaAndModelsInfo.md for more information
+// INFO_STUDY: refer to ../studyFiles/schemaAndModelsInfo.md for more information
 
 // INFO_STEP:
 // 1. Define a schema for the account collection
