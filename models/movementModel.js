@@ -4,8 +4,9 @@
 
 // INFO_STUDY: MongoDB object modeling tool designed to work in an asynchronous environment.
 const mongoose = require('mongoose');
-const { path } = require('../app');
-const { validate } = require('./categoryModel');
+
+//
+const Account = require("./accountModel")
 
 /*================================================================================ */
 /*=========================== Movement Schema Definition ========================= */
@@ -63,7 +64,11 @@ movementSchema.pre(/^find/, function (next) {
 });
 
 // INFO_STEP:
-// 3. Create a model for the movement schema
+// 3. Create a post hook to update the balance of the account associated with the movement
+movementSchema.post("save", async (doc) => await Account.findOneAndUpdate(doc.account, {$inc: {balance: doc.amount}}))
+
+// INFO_STEP:
+// 4. Create a model for the movement schema
 const Movement = mongoose.model('Movement', movementSchema);
 
 // INFO_STEP:
