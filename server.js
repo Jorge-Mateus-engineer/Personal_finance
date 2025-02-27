@@ -8,6 +8,9 @@ const mongoose = require('mongoose');
 // INFO_STUDY: module that loads environment variables from a .env file into process.env.
 const dotenv = require('dotenv');
 
+// INFO_STUDY: The config file must be read before creating an instance of the app so the app can access the variables
+dotenv.config({ path: './config.env' });
+
 // INFO_STUDY: Our express app
 const app = require('./app');
 
@@ -42,7 +45,7 @@ process.on('uncaughtException', (err) => {
 //INFO_STEP:
 // 2. Load environment variables by calling the config method on
 //      the dotenv object and passing the path to the .env file
-dotenv.config({ path: './config.env' });
+// dotenv.config({ path: './config.env' });
 
 //INFO_STEP:
 // 3. Connecting to the database
