@@ -25,6 +25,12 @@ const rateLimit = require('express-rate-limit');
 // INFO_STUDY: Express 4.x middleware which sanitizes user-supplied data to prevent MongoDB Operator Injection.
 const mongoSanitize = require('express-mongo-sanitize');
 
+// INFO_STUDY: General purpose custom error class
+const AppError = require("./utils/appError")
+
+// INFO_STUDY: Error handling middleware function, its recognized by Express as so since it has 4 parameters (err, req, res, next)
+const errorController = require("./controllers/errorController")
+
 /*================================================================================ */
 /*================================ Route imports ================================= */
 /*================================================================================ */
@@ -110,16 +116,13 @@ app.use('/api/v1/tags', tagRoutes);
 // INFO_STUDY: Adding a handler for unhandled routes, If it reaches this point it means
 //that none of the routers catched the route, so we create a new error and pass it to the next middleware
 
-// app.all('*', (req, res, next) => {
-//   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
-// });
+app.all('*', (req, res, next) => {
+  next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
+});
 
 // TODO: Improve global error handling middleware
 
-app.use((err, req, res, next) => {
-  console.log(err.message);
-  next();
-})
+app.use(errorController)
 
 
 // INFO_STEP:

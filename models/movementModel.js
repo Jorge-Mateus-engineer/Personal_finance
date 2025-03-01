@@ -43,7 +43,7 @@ const movementSchema = new mongoose.Schema({
     },
     account: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Account',
+        ref: 'account',
         required: [true, 'A movement must have an account asociated']
     },
     category: {
