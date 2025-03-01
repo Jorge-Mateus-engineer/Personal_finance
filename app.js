@@ -98,10 +98,10 @@ app.use(hpp());
 // 3. Mount the routes
 // TODO: Remove the comments once routes are implemented
 app.use('/api/v1/accounts', accountRoutes);
-// app.use('/api/v1/budgets', budgetRoutes);
-// app.use('/api/v1/categories', categoryRoutes);
-// app.use('/api/v1/movements', movementRoutes);
-// app.use('/api/v1/tags', tagRoutes);
+app.use('/api/v1/budgets', budgetRoutes);
+app.use('/api/v1/categories', categoryRoutes);
+app.use('/api/v1/movements', movementRoutes);
+app.use('/api/v1/tags', tagRoutes);
 
 
 // INFO_STEP:

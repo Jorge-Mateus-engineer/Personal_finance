@@ -4,7 +4,6 @@
 
 // INFO_STUDY: MongoDB object modeling tool designed to work in an asynchronous environment.
 const mongoose = require('mongoose');
-const { path } = require('../app');
 
 /*================================================================================ */
 /*============================== Tag Schema Definition =========================== */

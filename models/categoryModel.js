@@ -18,6 +18,11 @@ const categorySchema = new mongoose.Schema({
         type: String,
         unique: true,
         required: [true, "All Categories must have a name"]
+    },
+    type: {
+        type: String,
+        enum: ["need", "want", "saving"],
+        required: [true, "All Categories must have a type"]
     }
 });
 

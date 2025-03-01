@@ -32,7 +32,8 @@ const budgetSchema = new mongoose.Schema({
     },
     account: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Account'
+        ref: 'account',
+        required: [true, "A budget must be associated with an account"]
     }
 });
 
