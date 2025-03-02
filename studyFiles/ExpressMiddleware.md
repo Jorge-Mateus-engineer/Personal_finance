@@ -11,7 +11,7 @@ Middleware functions are functions that have access to the **request object (`re
 
 This is a middleware that will trigger when a GET request is recieved on the "/" route:
 
-```
+```javascript
 app.get("/", (req, res, next) => {
   doSomething(req.params);  
   next();
@@ -36,7 +36,7 @@ Contains key-value pairs of data submitted in the request body. By default, it i
 ##### Example
 
 ###### Middleware fucntion
-```
+```javascript
 app.use(express.json()); // Enable JSON body parsing
 
 app.post("/log-body", (req, res) => {
@@ -47,10 +47,11 @@ app.post("/log-body", (req, res) => {
 
 ###### Example Request (Client Sends JSON Data)
 
-```
+```http
 POST /log-body
 Content-Type: application/json
-
+```
+```json
 {
   "name": "John",
   "age": 25
@@ -70,7 +71,7 @@ This property is an object containing properties mapped to the named route “pa
 ##### Example
 
 ###### Middleware fucntion
-```
+```javascript
 app.get("/users/:id", (req, res) => {
     console.log(req.params); // Log the route parameters
     res.send(`User ID: ${req.params.id}`);
@@ -79,7 +80,7 @@ app.get("/users/:id", (req, res) => {
 
 ###### Example Request
 
-```
+```http
 GET /users/123
 ```
 
@@ -96,7 +97,7 @@ This property is an **object containing a property for each query string paramet
 ##### Example
 
 ###### Middleware fucntion
-```
+```javascript
 app.get("/search", (req, res) => {
     console.log(req.query); // Log the query parameters
     res.send(`Query received`);
@@ -105,7 +106,7 @@ app.get("/search", (req, res) => {
 
 ###### Example Request
 
-```
+```http
 GET /search?keyword=express&limit=10
 ```
 
@@ -134,7 +135,7 @@ Sets cookie `name` to `value`. The `value` parameter may be a **string or object
 ##### Example
 
 ###### Middleware fucntion
-```
+```javascript
 app.get("/set-cookie", (req, res) => {
     res.cookie("username", "JohnDoe",{ maxAge: 900000, httpOnly: true });
     res.send("Cookie set");
@@ -143,7 +144,7 @@ app.get("/set-cookie", (req, res) => {
 
 ###### Response Headers (Includes the Set-Cookie Header)
 
-```
+```http
 Set-Cookie: username=JohnDoe; Max-Age=900000; HttpOnly
 ```
 
@@ -160,7 +161,7 @@ Sends a **JSON response.** The parameter can be any JSON type, including object,
 ##### Example
 
 ###### Middleware fucntion
-```
+```javascript
 app.get("/data", (req, res) => {
     const data = { message: "Hello, world!", status: "success" };
     res.json(data); // Send JSON response
@@ -169,13 +170,13 @@ app.get("/data", (req, res) => {
 
 ###### Response Headers (Includes the Set-Cookie Header)
 
-```
+```http
 Content-Type: application/json; charset=utf-8
 ```
 
 ###### Response (JSON Sent to the Client)
 
-```
+```json
 {
   "message": "Hello, world!",
   "status": "success"
@@ -188,7 +189,7 @@ Sends the HTTP response. The body parameter can be a Buffer object, a String, an
 ##### Example
 
 ###### Middleware fucntion
-```
+```javascript
 app.get("/hello", (req, res) => {
     res.send("Hello, world!"); // Send a plain text response
 });
@@ -196,7 +197,7 @@ app.get("/hello", (req, res) => {
 
 ###### Response Headers (Includes the Set-Cookie Header)
 
-```
+```http
 HTTP/1.1 200 OK
 Content-Type: text/html; charset=utf-8
 ```
@@ -214,7 +215,7 @@ Sets the HTTP status for the response.
 ##### Example
 
 ###### Middleware fucntion
-```
+```javascript
 app.get("/not-found", (req, res) => {
     res.status(404).send("Resource not found"); // Set status code and send response
 });
@@ -222,7 +223,7 @@ app.get("/not-found", (req, res) => {
 
 ###### Response Headers (Includes the Set-Cookie Header)
 
-```
+```http
 HTTP/1.1 404 Not Found
 Content-Type: text/html; charset=utf-8
 ```

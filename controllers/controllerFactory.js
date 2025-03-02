@@ -77,7 +77,7 @@ exports.getById = function(Model, modelName) {
     return async (req, res, next) => {
     const queryModel = Model.findById(req.params.id)
 
-    queryModel.then((foundDocument) =>{
+    queryModel.select("-__v").then((foundDocument) =>{
         res.status(200).json({
             status: "success",
             data: foundDocument
@@ -104,7 +104,7 @@ exports.updateOne = function(Model, modelName) {
     return async (req, res, next) => {
     const queryUpdatedModel = Model.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true})
 
-    queryUpdatedModel.then((updatedAccount) => {
+    queryUpdatedModel.select("-__v").then((updatedAccount) => {
         res.status(200).json({
             status: "succes",
             data: updatedAccount

@@ -14,7 +14,7 @@ https://www.mongodb.com/docs/atlas/app-services/schemas/
 The Schema() constructor in Mongoose takes a definition object as its first argument, which describes the structure of the documents in a collection. The most common argument is an object where keys represent field names and values define field types, constraints, and relationships.
 
 ### Example:
-```
+```javascript
 const userSchema = new mongoose.Schema({
     name: { type: String, required: true },
     age: { type: Number, min: 0 },
@@ -26,19 +26,19 @@ const userSchema = new mongoose.Schema({
 
 The values on each key-value pair on the object can either be just the type:
 
-```
+```javascript
 {
     name: String,
-    ...other fields
+    //...other fields
 };
 ```
 
 Or they can be an object with additional options:
 
-```
+```javascript
 {
     name: { type: String, option2: value2, option3: value3 ... },
-    ...other fields
+    //...other fields
 };
 ```
 
@@ -61,7 +61,7 @@ Mongoose has several built-in validators:
 
 ### Example
 
-```
+```javascript
 const accountSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -82,7 +82,7 @@ Custom validation in Mongoose is declared by passing a function to the **validat
 
 ### Example
 
-```
+```javascript
 const userSchema = new mongoose.Schema({
     username: {
         type: String,
@@ -106,7 +106,7 @@ Middleware (also called pre and post hooks) are functions which are passed contr
 
 The middleware used in this app on the pre-hook is QueryMiddleware since it runs on the **find** method:
 
-```
+```javascript
 budgetSchema.pre(/^find/, function (next) {
     this.populate({
         path: 'category',
@@ -122,11 +122,9 @@ budgetSchema.pre(/^find/, function (next) {
 });
 ```
 
-The **this** keyword can refer to the Model, Document, Query or Aggregate objects depending on the event name or regex
-passed as the first argument.
+The **this** keyword can refer to the Model, Document, Query or Aggregate objects **depending on the event** name or regex passed as the first argument.
 
-The **populate** method belongs to the Query object and its used to specify the path which should be populated
-with other documents: the values passed in the object to **populate()** are:  
+The **populate** method belongs to the Query object and its used to specify the path which should be populated with other documents: the values passed in the object to **populate()** are:  
 
 - path: Refers to the field that has the type **mongoose.Schema.Types.ObjectId** that you want to populate
 - select: Refers to the specific field of the foreign model that you want to retrieve

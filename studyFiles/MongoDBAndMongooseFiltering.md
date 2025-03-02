@@ -11,7 +11,7 @@ This one is the primary method for filtering collections in MongoDB, its first a
 To do this we just pass an object of the form: `{field1: value1, field2: value2 ... }` for example:
 
 
-```
+```javascript
 // This will return all documents with the specified category and brand
 db.collection.find({ category: "electronics", brand: "Sony" });
 
@@ -36,14 +36,15 @@ For a broader search that is not only limited to the values specified but to a r
 
 To use these operators we pass an object of the form `{field1: {$operator1: value1, ... operatorN: valueN}, field2: {$operator1: value1, ... operatorN: valueN} ... }`, for example:
 
-```
+```javascript
 //This will return all the documents with the "electronics" category and that have a price greater than 200 and a stock lower than or equal to 50
 db.collection.find({ 
   category: "electronics", 
   price: { $gt: 200 }, 
   stock: { $lte: 50 } 
 });
-
+```
+```json
 // Example Response
 [
   { "_id": 1, "name": "TV", "category": "electronics", "brand": "Sony", "price": 500, "stock": 30 },
@@ -54,7 +55,7 @@ db.collection.find({
 
 To perform a search were we do not want all the criterias to be met, but rather any of them to be met (OR operation), we use the `$or` logical operator, passing an object of the form: `{ $or: [ { expression1 }, { expression2 }, ... , { expressionN } ] }`, for example:
 
-```
+```javascript
 // This will return documents that have the "electronics" category or that have a price greater than 500
 db.collection.find({ 
   $or: [ 
@@ -62,7 +63,8 @@ db.collection.find({
     { price: { $gt: 500 } } 
   ] 
 });
-
+```
+```json
 //Example response:
 [
   { "_id": 1, "name": "TV", "category": "electronics", "brand": "Sony", "price": 500 },
@@ -83,7 +85,7 @@ In Mongoose, the `Model.find()` method is used to filter documents in a collecti
 
 Given that `Model.find()` returns a Query object, it must be handled in an async way to access the documents returned, for example:
 
-```
+```javascript
 //Using async functions:
 const findDocuments = async function() {
     ....
@@ -136,7 +138,7 @@ Model.find().where("price").gte(100).lte(500);
 
 So a general way to perform `AND` operations in Mongoose would be:
 
-```
+```javascript
 Model.find()
   .where("field1").operatorMethod(value1)
   .where("field2").operatorMethod(value2)
@@ -145,7 +147,7 @@ Model.find()
 
 To perform `OR` operations you use the `.or()` method this way:
 
-```
+```javascript
 Model.find().or([{ category: "electronics" }, { price: { $gt: 500 } }]);
 
 //Which is equivalent to:
