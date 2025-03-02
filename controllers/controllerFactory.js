@@ -1,3 +1,5 @@
+const AppError = require("../utils/appError")
+
 exports.getAll = function(Model, modelName) {
     return async (req, res, next) => {
      // INFO_STUDY: To implement filtering we will take advantage of the req.query object turning
@@ -76,11 +78,6 @@ exports.getById = function(Model, modelName) {
     const queryModel = Model.findById(req.params.id)
 
     queryModel.then((foundDocument) =>{
-        //TODO: Improve error handling
-        if(!foundDocument) {
-            return new Error(`No ${modelName} found with the ID: ${req.params.id}`)
-        }
-
         res.status(200).json({
             status: "success",
             data: foundDocument
@@ -91,14 +88,15 @@ exports.getById = function(Model, modelName) {
 
 exports.createNew = function(Model) {
     return async (req, res, next) => {
-    const newDocument = await Model.create(req.body)
+    const queryNewDocument = Model.create(req.body)
 
-    res.status(201).json({
-        status: "creation success",
-        data: newDocument
-    })
+    queryNewDocument.then(newDocument => {
+        res.status(201).json({
+            status: "success",
+            data: newDocument
+        })
 
-    next();
+    }).catch(next)
     }
 }
 
@@ -107,30 +105,21 @@ exports.updateOne = function(Model, modelName) {
     const queryUpdatedModel = Model.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true})
 
     queryUpdatedModel.then((updatedAccount) => {
-        //TODO: Improve error handling
-        if(!updatedAccount) {
-            return new Error(`No ${modelName} found with the ID: ${req.params.id}`)
-        }
-
         res.status(200).json({
-            status: "update succesfull",
+            status: "succes",
             data: updatedAccount
         })
     }).catch(next)
     }
 }
 
-exports.deleteOne = function(Model, modelName) {
+exports.deleteOne = function(Model) {
     return async (req, res, next) => {
     const queryDeleteDocument = Model.findByIdAndDelete(req.params.id)
 
     queryDeleteDocument.then((deletedAccount) => {
-        if(!deletedAccount){
-            return new Error(`No ${modelName} found with the ID: ${req.params.id}`)
-        }
-
         res.status(204).json({
-            status: "delete succesfull",
+            status: "succes",
             data: null
         })
     }).catch(next)

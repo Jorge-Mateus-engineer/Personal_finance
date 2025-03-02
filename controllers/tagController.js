@@ -35,4 +35,4 @@ exports.updateTag = Factory.updateOne(Tag, "Tag")
 // 4 DELETE Methods
 // 4.1 Delete Tag
 
-exports.deleteTag = Factory.deleteOne(Tag, "Tag")
+exports.deleteTag = Factory.deleteOne(Tag)

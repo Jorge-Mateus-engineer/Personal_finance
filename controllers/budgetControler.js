@@ -35,4 +35,4 @@ exports.updateBudget = Factory.updateOne(Budget, "Budget")
 // 4 DELETE Methods
 // 4.1 Delete Budget
 
-exports.deleteBudget = Factory.deleteOne(Budget, "Budget")
+exports.deleteBudget = Factory.deleteOne(Budget)

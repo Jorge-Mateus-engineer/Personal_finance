@@ -35,4 +35,4 @@ exports.updateMovement = Factory.updateOne(Movement, "Movement")
 // 4 DELETE Methods
 // 4.1 Delete Movement
 
-exports.deleteMovement = Factory.deleteOne(Movement, "Movement")
+exports.deleteMovement = Factory.deleteOne(Movement)

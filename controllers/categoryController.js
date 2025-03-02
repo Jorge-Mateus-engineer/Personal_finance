@@ -35,4 +35,4 @@ exports.updateCategory = Factory.updateOne(Category, "Category")
 // 4 DELETE Methods
 // 4.1 Delete Category
 
-exports.deleteCategory = Factory.deleteOne(Category, "Category")
+exports.deleteCategory = Factory.deleteOne(Category)

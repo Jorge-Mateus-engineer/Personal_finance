@@ -35,4 +35,4 @@ exports.updateAccount = Factory.updateOne(Account, "Account")
 // 4 DELETE Methods
 // 4.1 Delete Account
 
-exports.deleteAccount = Factory.deleteOne(Account, "Account")
+exports.deleteAccount = Factory.deleteOne(Account)

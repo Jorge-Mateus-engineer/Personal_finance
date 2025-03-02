@@ -97,12 +97,10 @@ app.use(mongoSanitize());
 app.use(xss());
 
 // 2.7 Mount hpp middleware to protect against HTTP Parameter Pollution attacks
-// TODO: Check for whitelist of parameters if any
 app.use(hpp());
 
 // INFO_STEP:
 // 3. Mount the routes
-// TODO: Remove the comments once routes are implemented
 app.use('/api/v1/accounts', accountRoutes);
 app.use('/api/v1/budgets', budgetRoutes);
 app.use('/api/v1/categories', categoryRoutes);
@@ -120,7 +118,8 @@ app.all('*', (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
 });
 
-// TODO: Improve global error handling middleware
+// INFO_STEP:
+// 5. Personalized global error handling middleware
 
 app.use(errorController)
 
