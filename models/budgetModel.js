@@ -26,15 +26,15 @@ const budgetSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Category'
     },
-    tag: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Tag'
-    },
     account: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'account',
         required: [true, "A budget must be associated with an account"]
-    }
+    },
+    tags: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Tag'
+    }]
 });
 
 // INFO_STEP:

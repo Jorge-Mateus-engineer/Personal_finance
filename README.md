@@ -168,3 +168,157 @@ Updates an account document based on the provided ID, only updates fields passed
     }
 }
 ```
+
+### Budgets
+
+#### Document schema
+
+```json
+{
+    "_id": "67be245370c23g8r7f83427ty78",
+    "name": "Essentials",
+    "amount": 5000,
+    "category": "67c253b8145558833fste290",
+    "account": "67c4ba69f5r37d7f8273680",
+    "tags": ["67c258c3e21012d2v91dac64", "67c251t9134138833fdce295"]
+}
+```
+
+#### Endpoints
+
+##### Get list of budgets
+```http
+  GET /api/v1/budgets
+```
+Returns a list of all budgets, by default is limited to a max of 50 budgets returned, supports sorting, filtering, pagination and specific field selection.
+
+| Query Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `fields` | `list of strings` |List of fields of the document to be returned |
+| `sort` | `string` | Field to use as a reference for sorting the document list returned, use `-field` to sort descendingly |
+| `pageNumber` | `int` | Used with `pageSize` when using pagination, the number represents the page number that you want to retrieve |
+| `pageSize` | `int` | Used with `pageNumber` when using pagination, the number determines the size of the pages |
+| `field[operator]` | `string` | Used to implement simple filtering, supports the basic MongoDB operators: `gte`, `gt`, `lte`, `lt`  |
+
+###### Response
+
+```json
+{
+    "status": "success",
+    "results": 2,
+    "data": {
+        "Document": [
+            {
+                "_id": "67be245370c23g8r7f83427ty78",
+                "name": "Essentials",
+                "amount": 5000,
+                "category": "67c253b8145558833fste290",
+                "account": "67c4ba69f5r37d7f8273680",
+                "tags": ["67c258c3e21012d2v91dac64", "67c251t9134138833fdce295"]
+            },
+            {
+                "_id": "67be245370c23g8r7f83427ty78",
+                "name": "Leisure",
+                "amount": 2000,
+                "category": "67c253b8197358833fste290",
+                "account": "67c4ba69f5r34d7f8273680",
+                "tags": ["67c258c3e21012d2b89dsdac64", "67c251t91318735833fdce295"]
+            },
+            // ... other documents
+        ]
+    }
+}
+```
+
+
+##### Create budget
+```http
+  POST /api/v1/budgets
+```
+Creates an budget based on the request body
+###### Request body
+
+```json
+{
+    "name": "Groceries",
+    "amount": 6000,
+    "category": "67c253b8135558833fste290",
+    "account": "67c4ba69f5r37d7f8273680",
+    "tags": ["67c258c3e21012d2v91dac64", "67c251t9134138833fdce295"]
+}
+```
+###### Response
+
+```json
+{
+    "status": "success",
+    "data": {
+        "name": "Groceries",
+        "amount": 6000,
+        "category": "67c253b8135558833fste290",
+        "account": "67c4ba69f5r37d7f8273680",
+        "tags": ["67c258c3e21012d2v91dac64", "67c251t9134138833fdce295"],
+        "__v": 0
+    }
+}
+```
+
+##### Get budget by ID
+```http
+  GET /api/v1/budgets/:id
+```
+Retrieves an budget document based on the provided ID
+
+| Path Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `id` | `string` | ID of the desired budget|
+
+###### Response
+
+```json
+{
+    "status": "success",
+    "data": {
+        "_id": "67be245370c23g8r7f83427ty78",
+        "name": "Leisure",
+        "amount": 2000,
+        "category": "67c253b8197358833fste290",
+        "account": "67c4ba69f5r34d7f8273680",
+        "tags": ["67c258c3e21012d2b89dsdac64", "67c251t91318735833fdce295"]
+    }
+}
+```
+
+##### Update budget by ID
+```http
+  PATCH /api/v1/budgets/:id
+```
+Updates an budget document based on the provided ID, only updates fields passed on the request body
+
+| Path Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `id` | `string` | ID of the desired budget|
+
+###### Request body
+
+```json
+{
+    "amount": 1000
+}
+```
+
+###### Response
+
+```json
+{
+    "status": "succes",
+    "data": {
+        "_id": "67be245370c23g8r7f83427ty78",
+        "name": "Leisure",
+        "amount": 1000,
+        "category": "67c253b8197358833fste290",
+        "account": "67c4ba69f5r34d7f8273680",
+        "tags": ["67c258c3e21012d2b89dsdac64", "67c251t91318735833fdce295"]
+    }
+}
+```
