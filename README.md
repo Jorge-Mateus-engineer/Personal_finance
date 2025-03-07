@@ -1,4 +1,3 @@
-
 # Personal Finance API
 
 Personal project to track finances its an implementation of a REST API using Express and MongoDB with mongoose, created as a mean to study how to create an API using Node.js and Express, using MongoDB as a database and making use of the Mongoose library to work with MongoDB asynchronously.
@@ -235,7 +234,7 @@ Returns a list of all budgets, by default is limited to a max of 50 budgets retu
 ```http
   POST /api/v1/budgets
 ```
-Creates an budget based on the request body
+Creates a budget based on the request body
 ###### Request body
 
 ```json
@@ -320,5 +319,157 @@ Updates an budget document based on the provided ID, only updates fields passed 
         "account": "67c4ba69f5r34d7f8273680",
         "tags": ["67c258c3e21012d2b89dsdac64", "67c251t91318735833fdce295"]
     }
+}
+```
+
+### Categories
+
+#### Document schema
+
+```json
+{
+    "_id": "67c253b8145558833fste290",
+    "name": "Food",
+    "description": "Expenses for food and groceries"
+}
+```
+
+#### Endpoints
+
+##### Get list of categories
+```http
+  GET /api/v1/categories
+```
+Returns a list of all categories, by default is limited to a max of 50 categories returned, supports sorting, filtering, pagination and specific field selection.
+
+| Query Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `fields` | `list of strings` |List of fields of the document to be returned |
+| `sort` | `string` | Field to use as a reference for sorting the document list returned, use `-field` to sort descendingly |
+| `pageNumber` | `int` | Used with `pageSize` when using pagination, the number represents the page number that you want to retrieve |
+| `pageSize` | `int` | Used with `pageNumber` when using pagination, the number determines the size of the pages |
+| `field[operator]` | `string` | Used to implement simple filtering, supports the basic MongoDB operators: `gte`, `gt`, `lte`, `lt`  |
+
+###### Response
+
+```json
+{
+    "status": "success",
+    "results": 2,
+    "data": {
+        "Document": [
+            {
+                "_id": "67c253b8145558833fste290",
+                "name": "Food",
+                "description": "Expenses for food and groceries"
+            },
+            {
+                "_id": "67c253b8197358833fste290",
+                "name": "Entertainment",
+                "description": "Expenses for movies, concerts, etc."
+            },
+            // ... other documents
+        ]
+    }
+}
+```
+
+##### Create category
+```http
+  POST /api/v1/categories
+```
+Creates a category based on the request body
+###### Request body
+
+```json
+{
+    "name": "Utilities",
+    "description": "Expenses for utilities like electricity, water, etc."
+}
+```
+###### Response
+
+```json
+{
+    "status": "success",
+    "data": {
+        "name": "Utilities",
+        "description": "Expenses for utilities like electricity, water, etc.",
+        "_id": "67c253b8145558833fste291",
+        "__v": 0
+    }
+}
+```
+
+##### Get category by ID
+```http
+  GET /api/v1/categories/:id
+```
+Retrieves a category document based on the provided ID
+
+| Path Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `id` | `string` | ID of the desired category|
+
+###### Response
+
+```json
+{
+    "status": "success",
+    "data": {
+        "_id": "67c253b8145558833fste290",
+        "name": "Food",
+        "description": "Expenses for food and groceries"
+    }
+}
+```
+
+##### Update category by ID
+```http
+  PATCH /api/v1/categories/:id
+```
+Updates a category document based on the provided ID, only updates fields passed on the request body
+
+| Path Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `id` | `string` | ID of the desired category|
+
+###### Request body
+
+```json
+{
+    "description": "Expenses for food, groceries, and dining out"
+}
+```
+
+###### Response
+
+```json
+{
+    "status": "success",
+    "data": {
+        "_id": "67c253b8145558833fste290",
+        "name": "Food",
+        "description": "Expenses for food, groceries, and dining out"
+    }
+}
+```
+
+##### Delete category by ID
+```http
+  DELETE /api/v1/categories/:id
+```
+Deletes a category document based on the provided ID
+
+| Path Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `id` | `string` | ID of the desired category|
+
+###### Response
+
+```json
+{
+    "status": "success",
+    "data": null
 }
 ```
