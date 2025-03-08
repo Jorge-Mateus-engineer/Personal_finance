@@ -473,3 +473,183 @@ Deletes a category document based on the provided ID
     "data": null
 }
 ```
+
+### Movements
+
+#### Document schema
+
+```json
+{
+    "_id": "67c4ba69f5r37d7f8273680",
+    "description": "Grocery shopping",
+    "amount": 150,
+    "date": "2023-10-01T00:00:00.000Z",
+    "category": "67c253b8145558833fste290",
+    "account": "67c4ba69f5r37d7f8273680",
+    "tags": ["67c258c3e21012d2v91dac64", "67c251t9134138833fdce295"]
+}
+```
+
+#### Endpoints
+
+##### Get list of movements
+```http
+  GET /api/v1/movements
+```
+Returns a list of all movements, by default is limited to a max of 50 movements returned, supports sorting, filtering, pagination and specific field selection.
+
+| Query Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `fields` | `list of strings` |List of fields of the document to be returned |
+| `sort` | `string` | Field to use as a reference for sorting the document list returned, use `-field` to sort descendingly |
+| `pageNumber` | `int` | Used with `pageSize` when using pagination, the number represents the page number that you want to retrieve |
+| `pageSize` | `int` | Used with `pageNumber` when using pagination, the number determines the size of the pages |
+| `field[operator]` | `string` | Used to implement simple filtering, supports the basic MongoDB operators: `gte`, `gt`, `lte`, `lt`  |
+
+###### Response
+
+```json
+{
+    "status": "success",
+    "results": 2,
+    "data": {
+        "Document": [
+            {
+                "_id": "67c4ba69f5r37d7f8273680",
+                "description": "Grocery shopping",
+                "amount": 150,
+                "date": "2023-10-01T00:00:00.000Z",
+                "category": "67c253b8145558833fste290",
+                "account": "67c4ba69f5r37d7f8273680",
+                "tags": ["67c258c3e21012d2v91dac64", "67c251t9134138833fdce295"]
+            },
+            {
+                "_id": "67c4ba69f5r37d7f8273681",
+                "description": "Electricity bill",
+                "amount": 100,
+                "date": "2023-10-02T00:00:00.000Z",
+                "category": "67c253b8145558833fste291",
+                "account": "67c4ba69f5r37d7f8273681",
+                "tags": ["67c258c3e21012d2v91dac65", "67c251t9134138833fdce296"]
+            },
+            // ... other documents
+        ]
+    }
+}
+```
+
+##### Create movement
+```http
+  POST /api/v1/movements
+```
+Creates a movement based on the request body, everytime a new movement is created, the balance of the associated account is updated
+###### Request body
+
+```json
+{
+    "description": "Internet bill",
+    "amount": 60,
+    "date": "2023-10-03T00:00:00.000Z",
+    "category": "67c253b8145558833fste292",
+    "account": "67c4ba69f5r37d7f8273682",
+    "tags": ["67c258c3e21012d2v91dac66", "67c251t9134138833fdce297"]
+}
+```
+###### Response
+
+```json
+{
+    "status": "success",
+    "data": {
+        "description": "Internet bill",
+        "amount": 60,
+        "date": "2023-10-03T00:00:00.000Z",
+        "category": "67c253b8145558833fste292",
+        "account": "67c4ba69f5r37d7f8273682",
+        "tags": ["67c258c3e21012d2v91dac66", "67c251t9134138833fdce297"],
+        "_id": "67c4ba69f5r37d7f8273683",
+        "__v": 0
+    }
+}
+```
+
+##### Get movement by ID
+```http
+  GET /api/v1/movements/:id
+```
+Retrieves a movement document based on the provided ID
+
+| Path Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `id` | `string` | ID of the desired movement|
+
+###### Response
+
+```json
+{
+    "status": "success",
+    "data": {
+        "_id": "67c4ba69f5r37d7f8273680",
+        "description": "Grocery shopping",
+        "amount": 150,
+        "date": "2023-10-01T00:00:00.000Z",
+        "category": "67c253b8145558833fste290",
+        "account": "67c4ba69f5r37d7f8273680",
+        "tags": ["67c258c3e21012d2v91dac64", "67c251t9134138833fdce295"]
+    }
+}
+```
+
+##### Update movement by ID
+```http
+  PATCH /api/v1/movements/:id
+```
+Updates a movement document based on the provided ID, only updates fields passed on the request body
+
+| Path Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `id` | `string` | ID of the desired movement|
+
+###### Request body
+
+```json
+{
+    "amount": 200
+}
+```
+
+###### Response
+
+```json
+{
+    "status": "success",
+    "data": {
+        "_id": "67c4ba69f5r37d7f8273680",
+        "description": "Grocery shopping",
+        "amount": 200,
+        "date": "2023-10-01T00:00:00.000Z",
+        "category": "67c253b8145558833fste290",
+        "account": "67c4ba69f5r37d7f8273680",
+        "tags": ["67c258c3e21012d2v91dac64", "67c251t9134138833fdce295"]
+    }
+}
+```
+
+##### Delete movement by ID
+```http
+  DELETE /api/v1/movements/:id
+```
+Deletes a movement document based on the provided ID
+
+| Path Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `id` | `string` | ID of the desired movement|
+
+###### Response
+
+```json
+{
+    "status": "success",
+    "data": null
+}
+```
