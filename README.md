@@ -653,3 +653,155 @@ Deletes a movement document based on the provided ID
     "data": null
 }
 ```
+
+### Tags
+
+#### Document schema
+
+```json
+{
+    "_id": "67c258c3e21012d2v91dac64",
+    "name": "Groceries",
+    "description": "Expenses related to grocery shopping"
+}
+```
+
+#### Endpoints
+
+##### Get list of tags
+```http
+  GET /api/v1/tags
+```
+Returns a list of all tags, by default is limited to a max of 50 tags returned, supports sorting, filtering, pagination and specific field selection.
+
+| Query Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `fields` | `list of strings` |List of fields of the document to be returned |
+| `sort` | `string` | Field to use as a reference for sorting the document list returned, use `-field` to sort descendingly |
+| `pageNumber` | `int` | Used with `pageSize` when using pagination, the number represents the page number that you want to retrieve |
+| `pageSize` | `int` | Used with `pageNumber` when using pagination, the number determines the size of the pages |
+| `field[operator]` | `string` | Used to implement simple filtering, supports the basic MongoDB operators: `gte`, `gt`, `lte`, `lt`  |
+
+###### Response
+
+```json
+{
+    "status": "success",
+    "results": 2,
+    "data": {
+        "Document": [
+            {
+                "_id": "67c258c3e21012d2v91dac64",
+                "name": "Groceries",
+                "description": "Expenses related to grocery shopping"
+            },
+            {
+                "_id": "67c258c3e21012d2v91dac65",
+                "name": "Utilities",
+                "description": "Expenses related to utilities like electricity, water, etc."
+            },
+            // ... other documents
+        ]
+    }
+}
+```
+
+##### Create tag
+```http
+  POST /api/v1/tags
+```
+Creates a tag based on the request body
+###### Request body
+
+```json
+{
+    "name": "Entertainment",
+    "description": "Expenses related to entertainment activities"
+}
+```
+###### Response
+
+```json
+{
+    "status": "success",
+    "data": {
+        "name": "Entertainment",
+        "description": "Expenses related to entertainment activities",
+        "_id": "67c258c3e21012d2v91dac66",
+        "__v": 0
+    }
+}
+```
+
+##### Get tag by ID
+```http
+  GET /api/v1/tags/:id
+```
+Retrieves a tag document based on the provided ID
+
+| Path Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `id` | `string` | ID of the desired tag|
+
+###### Response
+
+```json
+{
+    "status": "success",
+    "data": {
+        "_id": "67c258c3e21012d2v91dac64",
+        "name": "Groceries",
+        "description": "Expenses related to grocery shopping"
+    }
+}
+```
+
+##### Update tag by ID
+```http
+  PATCH /api/v1/tags/:id
+```
+Updates a tag document based on the provided ID, only updates fields passed on the request body
+
+| Path Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `id` | `string` | ID of the desired tag|
+
+###### Request body
+
+```json
+{
+    "description": "Expenses related to grocery shopping and food"
+}
+```
+
+###### Response
+
+```json
+{
+    "status": "success",
+    "data": {
+        "_id": "67c258c3e21012d2v91dac64",
+        "name": "Groceries",
+        "description": "Expenses related to grocery shopping and food"
+    }
+}
+```
+
+##### Delete tag by ID
+```http
+  DELETE /api/v1/tags/:id
+```
+Deletes a tag document based on the provided ID
+
+| Path Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `id` | `string` | ID of the desired tag|
+
+###### Response
+
+```json
+{
+    "status": "success",
+    "data": null
+}
+```
