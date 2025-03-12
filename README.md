@@ -168,6 +168,25 @@ Updates an account document based on the provided ID, only updates fields passed
 }
 ```
 
+##### Delete account by ID
+```http
+  DELETE /api/v1/accounts/:id
+```
+Deletes an account document based on the provided ID
+
+| Path Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `id` | `string` | ID of the desired account|
+
+###### Response
+
+```json
+{
+    "status": "success",
+    "data": null
+}
+```
+
 ### Budgets
 
 #### Document schema
@@ -319,6 +338,25 @@ Updates an budget document based on the provided ID, only updates fields passed 
         "account": "67c4ba69f5r34d7f8273680",
         "tags": ["67c258c3e21012d2b89dsdac64", "67c251t91318735833fdce295"]
     }
+}
+```
+
+##### Delete budget by ID
+```http
+  DELETE /api/v1/budgets/:id
+```
+Deletes a budget document based on the provided ID
+
+| Path Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `id` | `string` | ID of the desired budget|
+
+###### Response
+
+```json
+{
+    "status": "success",
+    "data": null
 }
 ```
 
